@@ -37,10 +37,12 @@ CREATE TABLE adresse(
 CREATE TABLE mutation(
         ID_mutation     Int  Auto_increment  NOT NULL ,
         nature_mutation Varchar (50) NOT NULL ,
-        date_mutation   Date NOT NULL
+        date_mutation   Date NOT NULL ,
+        ID_propriete    Int NOT NULL
 	,CONSTRAINT mutation_PK PRIMARY KEY (ID_mutation)
-)ENGINE=InnoDB;
 
+	,CONSTRAINT mutation_propriete_FK FOREIGN KEY (ID_propriete) REFERENCES propriete(ID_propriete)
+)ENGINE=InnoDB;
 
 #------------------------------------------------------------
 # Table: natureculture
@@ -84,21 +86,6 @@ CREATE TABLE lot(
 	,CONSTRAINT lot_PK PRIMARY KEY (ID_lot)
 )ENGINE=InnoDB;
 
-
-#------------------------------------------------------------
-# Table: muter
-#------------------------------------------------------------
-
-CREATE TABLE muter(
-        ID_propriete Int NOT NULL ,
-        ID_mutation  Int NOT NULL
-	,CONSTRAINT muter_PK PRIMARY KEY (ID_propriete,ID_mutation)
-
-	,CONSTRAINT muter_propriete_FK FOREIGN KEY (ID_propriete) REFERENCES propriete(ID_propriete)
-	,CONSTRAINT muter_mutation0_FK FOREIGN KEY (ID_mutation) REFERENCES mutation(ID_mutation)
-)ENGINE=InnoDB;
-
-
 #------------------------------------------------------------
 # Table: apparait
 #------------------------------------------------------------
@@ -114,20 +101,15 @@ CREATE TABLE apparait(
 
 
 #temptable
-
-CREATE TABLE `finalcsv2` (
+CREATE TABLE `finalcsv` (
   `Date mutation` datetime DEFAULT NULL,
   `Nature mutation` text,
   `Valeur fonciere` int DEFAULT NULL,
-  `No voie` double DEFAULT NULL,
-  `B/T/Q` text,
-  `Type de voie` text,
-  `Voie` text,
-  `Code postal` double DEFAULT NULL,
+  `Code postal` int DEFAULT NULL,
   `Commune` text,
   `Surface reelle bati` double DEFAULT NULL,
-  `Nombre pieces principales` double DEFAULT NULL,
-  `Surface terrain` text,
+  `Nombre pieces principales` int DEFAULT NULL,
+  `Surface terrain` double DEFAULT NULL,
   `1er lot` text,
   `2eme lot` text,
   `3eme lot` text,
@@ -135,7 +117,11 @@ CREATE TABLE `finalcsv2` (
   `5eme lot` text,
   `Type local` text,
   `Adresse` text,
-  `Voie_Complete` text
-) ENGINE=InnoDB;
-
-
+  `Voie_Complete` text,
+  `Nature culture` text,
+  `Surface Carrez du 1er lot` text,
+  `Surface Carrez du 2eme lot` text,
+  `Surface Carrez du 3eme lot` text,
+  `Surface Carrez du 4eme lot` text,
+  `Surface Carrez du 5eme lot` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
